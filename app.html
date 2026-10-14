@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dummy Test App</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; padding: 0 16px; color: #222; }
+    header { padding: 18px; background: #eef4ff; border-radius: 8px; }
+    section { margin: 22px 0; padding: 18px; border: 1px solid #ddd; border-radius: 8px; }
+    label { display: block; margin: 10px 0 5px; }
+    input, select, textarea, button { padding: 9px; margin: 4px 0; }
+    input, select, textarea { width: 100%; max-width: 420px; box-sizing: border-box; }
+    button { cursor: pointer; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 9px; text-align: left; }
+    th { background: #f2f2f2; }
+    #message { font-weight: bold; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="page-title">Dummy Test Application</h1>
+    <p id="welcome-text">Use this page to test HTML elements, locators, and basic interactions.</p>
+  </header>
+
+  <section id="login-section">
+    <h2>Login Form</h2>
+    <form id="login-form">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" placeholder="Enter username" autocomplete="username" required>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" placeholder="Enter password" autocomplete="current-password" required>
+
+      <label for="remember-me">
+        <input id="remember-me" name="rememberMe" type="checkbox" style="width:auto">
+        Remember me
+      </label>
+
+      <button id="login-button" type="submit">Login</button>
+      <button id="clear-button" type="reset">Clear</button>
+    </form>
+    <p id="message" role="status" aria-live="polite"></p>
+  </section>
+
+  <section id="profile-section">
+    <h2>Profile Details</h2>
+    <label for="full-name">Full name</label>
+    <input id="full-name" name="fullName" type="text" value="Test User">
+
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" placeholder="test@example.com">
+
+    <label for="role">Role</label>
+    <select id="role" name="role">
+      <option value="">Select a role</option>
+      <option value="tester">Software Tester</option>
+      <option value="developer">Developer</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <label for="comments">Comments</label>
+    <textarea id="comments" name="comments" rows="3" placeholder="Write a comment..."></textarea>
+
+    <button id="save-profile" type="button">Save Profile</button>
+  </section>
+
+  <section id="items-section">
+    <h2>Sample Items</h2>
+    <table id="items-table">
+      <thead>
+        <tr><th>ID</th><th>Item</th><th>Status</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>101</td><td>Laptop</td><td class="status">Available</td><td><button class="select-item" data-item="Laptop">Select</button></td></tr>
+        <tr><td>102</td><td>Keyboard</td><td class="status">Available</td><td><button class="select-item" data-item="Keyboard">Select</button></td></tr>
+        <tr><td>103</td><td>Monitor</td><td class="status">Out of stock</td><td><button class="select-item" data-item="Monitor" disabled>Select</button></td></tr>
+      </tbody>
+    </table>
+    <p id="selected-item">No item selected.</p>
+  </section>
+
+  <section id="misc-section">
+    <h2>Other Test Elements</h2>
+    <a id="example-link" href="https://example.com" target="_blank" rel="noopener">Open Example.com</a>
+    <p><input id="terms" type="checkbox"> <label for="terms" style="display:inline">I accept the terms</label></p>
+    <button id="toggle-button" type="button">Toggle Extra Text</button>
+    <p id="extra-text" hidden>This text can be shown or hidden during a test.</p>
+  </section>
+
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const message = document.getElementById('message');
+
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      message.textContent = username ? `Demo login submitted for ${username}.` : 'Please enter a username.';
+    });
+
+    document.getElementById('save-profile').addEventListener('click', function () {
+      const name = document.getElementById('full-name').value.trim();
+      message.textContent = name ? `Profile saved for ${name}.` : 'Please enter a full name.';
+    });
+
+    document.querySelectorAll('.select-item').forEach(function (button) {
+      button.addEventListener('click', function () {
+        document.getElementById('selected-item').textContent = `Selected item: ${button.dataset.item}`;
+      });
+    });
+
+    document.getElementById('toggle-button').addEventListener('click', function () {
+      const extraText = document.getElementById('extra-text');
+      extraText.hidden = !extraText.hidden;
+    });
+  </script>
+</body>
+</html>
